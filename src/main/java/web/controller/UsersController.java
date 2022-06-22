@@ -1,7 +1,6 @@
 package web.controller;
 
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +15,15 @@ public class UsersController {
 
     private final UserService userService;
 
-    public UsersController(@Qualifier("userServiceImpl") UserService userService) {
+    public UsersController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping()
-    public String index(Model model) {
-        List<User> users = userService.index();
+    public String getAllUsers(Model model) {
+        List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        return "users/index";
+        return "users/allUsers";
     }
 
     @GetMapping("/{id}")

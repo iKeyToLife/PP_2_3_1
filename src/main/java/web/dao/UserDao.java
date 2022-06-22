@@ -1,43 +1,19 @@
 package web.dao;
 
-import org.springframework.stereotype.Repository;
 import web.model.User;
-import web.service.UserService;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
-public class UserDao implements UserService {
-
-    @PersistenceContext
-    private EntityManager entityManager;
+public interface UserDao {
 
 
-    @Override
-    public List<User> index() {
-        return entityManager.createQuery("FROM User", User.class).getResultList();
-    }
+    List<User> getAllUsers();
 
-    @Override
-    public User showUser(long id) {
-        return entityManager.find(User.class, id);
-    }
+    User showUser(long id);
 
-    @Override
-    public void saveUser(User user) {
-        entityManager.persist(user);
-    }
+    void saveUser(User user);
 
-    @Override
-    public void updateUser(long id, User updateUser) {
-        entityManager.merge(updateUser);
-    }
+    void updateUser(long id, User updateUser);
 
-    @Override
-    public void delete(long id) {
-        User user = entityManager.find(User.class, id);
-        entityManager.remove(user);
-    }
+    void delete(long id);
 }
